@@ -4,8 +4,10 @@ namespace dp {
     DataProcessor::DataProcessor() : QObject()
     {
     }
-    DataProcessor::DataProcessor(QByteArray data){
-        this->data = data;
+    DataProcessor::DataProcessor(QCustomPlot *plot, char headerH, char headerL){
+        this->plot = plot;
+        this->headerH = headerH;
+        this->headerL = headerL;
     }
 }
 

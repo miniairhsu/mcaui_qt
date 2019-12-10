@@ -2,6 +2,7 @@
 #define DATAPROCESSOR_H
 
 #include <QObject>
+#include "qcustomplot.h"
 using namespace std;
 namespace dp {
     class DataProcessor : public QObject
@@ -9,10 +10,12 @@ namespace dp {
         Q_OBJECT
     public:
         DataProcessor();
-        DataProcessor(QByteArray data);
+        DataProcessor(QCustomPlot *plot, char headerH, char headerL);
         virtual void update(QByteArray &data)=0;
-        QByteArray data;
-
+        virtual void refreshGraph() = 0;
+        QCustomPlot *plot;
+        char headerH;
+        char headerL;
     signals:
 
     public slots:

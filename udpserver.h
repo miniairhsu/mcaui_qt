@@ -8,13 +8,14 @@ namespace ionet {
     private:
         QUdpSocket *socket;
         void notify(QByteArray &data);
+        void txData(QString txData){}
     public:
         Udpserver();
         void registerObserver(dp::DataProcessor *observer);
     public slots:
         void rxData();
-    signals:
-        void rxDataReceived(QByteArray *data);
+    //signals:
+        //void rxDataReceived(QByteArray *data);
     };
 }
 
