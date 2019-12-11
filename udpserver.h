@@ -3,12 +3,12 @@
 #include <QUdpSocket>
 #include "network.h"
 namespace ionet {
-    class Udpserver: public Network
-    {
+    class Udpserver: public Network{
+        Q_OBJECT
     private:
         QUdpSocket *socket;
         void notify(QByteArray &data);
-        void txData(QString txData){}
+        virtual void txData(QString txData){}
     public:
         Udpserver();
         void registerObserver(dp::DataProcessor *observer);

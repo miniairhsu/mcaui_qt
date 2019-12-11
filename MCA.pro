@@ -30,19 +30,19 @@ SOURCES += \
     network.cpp \
     udpclient.cpp \
     udpserver.cpp \
-    qcustomplot.cpp \
     dataprocessor.cpp \
-    adprocessor.cpp
+    adprocessor.cpp \
+    qcustomplot.cpp
 
 HEADERS += \
         mcawindow.h \
     network.h \
     udpclient.h \
     udpserver.h \
-    qcustomplot.h \
     dataprocessor.h \
     adprocessor.h \
-    dataheaders.h
+    dataheaders.h \
+    qcustomplot.h
 
 FORMS += \
         mcawindow.ui
@@ -66,3 +66,16 @@ LIBS += C:/Users/minia/Documents/academy/swlib/opencvLib_QT/install/x86/mingw/bi
 LIBS += C:/Users/minia/Documents/academy/swlib/opencvLib_QT/install/x86/mingw/bin/libopencv_stitching410.dll
 LIBS += C:/Users/minia/Documents/academy/swlib/opencvLib_QT/install/x86/mingw/bin/libopencv_features2d410.dll
 LIBS += C:/Users/minia/Documents/academy/swlib/opencvLib_QT/install/x86/mingw/bin/libopencv_objdetect410.dll
+
+
+
+
+
+
+
+
+
+
+
+
+

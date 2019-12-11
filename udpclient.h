@@ -5,8 +5,7 @@
 #include "network.h"
 using namespace std;
 namespace ionet {
-    class Udpclient : public Network
-    {
+    class Udpclient : public Network{
     private:
         QUdpSocket *socket;
     public:

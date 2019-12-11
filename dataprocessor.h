@@ -12,7 +12,7 @@ namespace dp {
         DataProcessor();
         DataProcessor(QCustomPlot *plot, char headerH, char headerL);
         virtual void update(QByteArray &data)=0;
-        virtual void refreshGraph() = 0;
+        virtual void refreshGraph(char* cData) = 0;
         QCustomPlot *plot;
         char headerH;
         char headerL;

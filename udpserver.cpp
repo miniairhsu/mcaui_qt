@@ -3,9 +3,9 @@
 namespace ionet {
     Udpserver::Udpserver()
     {
-        socket = new QUdpSocket(this);
-        socket->bind(QHostAddress::LocalHost, 1111);
-        connect(socket, SIGNAL(readyRead()), this, SLOT(Udpserver::rxData()));
+        this->socket = new QUdpSocket(this);
+        this->socket->bind(QHostAddress::LocalHost, 1111);
+        QObject::connect(socket, SIGNAL(readyRead()), this, SLOT(rxData()));
     }
     void Udpserver::registerObserver(dp::DataProcessor *observer){
         this->dataObseverList.push_back(observer);
@@ -22,7 +22,7 @@ namespace ionet {
         quint16 port;
         QByteArray data;
         while (socket->hasPendingDatagrams()){
-               data.resize(socket->pendingDatagramSize());
+               data.resize(static_cast<int>(socket->pendingDatagramSize()));
                socket->readDatagram(data.data(), data.size(), &addr, &port);
         }
         this->notify(data);

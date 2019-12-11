@@ -9,9 +9,11 @@ namespace dp {
         AdProcessor();
         AdProcessor(QCustomPlot *plot,char headerH, char headerL);
         void update(QByteArray &data);
-        void refreshGraph();
+        void refreshGraph(char* cData);
     private:
-        short sData[2048];
+        QVector<double> yData_Vec;
+        QVector<double> xData_Vec;
+        short sData[8192];
     };
 }
 

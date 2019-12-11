@@ -15,6 +15,9 @@ MCAWindow::MCAWindow(QWidget *parent) :
     dp::DataProcessor *adbProc = new dp::AdProcessor(ui->adbGraph, ADB_HH, ADB_HL);
     udpServer->registerObserver(adaProc);
     udpServer->registerObserver(adbProc);
+    //=========configure ui============//
+    ui->adaGraph->addGraph();
+    ui->adbGraph->addGraph();
 }
 
 MCAWindow::~MCAWindow()

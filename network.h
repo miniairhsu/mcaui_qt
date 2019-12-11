@@ -11,8 +11,6 @@ using namespace std;
 using namespace dp;
 namespace ionet {
     class Network : public QObject{
-    private:
-
     public:
         std::vector<class dp::DataProcessor*> dataObseverList;
         QHostAddress addr;
@@ -22,8 +20,8 @@ namespace ionet {
         virtual void registerObserver(dp::DataProcessor *observer) = 0;
         virtual void txData(QString txData) = 0;
         virtual void notify(QByteArray &data) = 0;
-    public slots:
-        virtual void rxData() = 0; //connect this to readyRead signal
+     //public slots:
+        //virtual void rxData() = 0; //connect this to readyRead signal
     };
 }
 
