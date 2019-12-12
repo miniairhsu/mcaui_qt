@@ -4,8 +4,8 @@ namespace ionet {
     Udpserver::Udpserver()
     {
         this->socket = new QUdpSocket();
-        this->socket->bind(QHostAddress::LocalHost, 1111);
-        QObject::connect(socket, SIGNAL(readyRead()), this, SLOT(rxData()));
+        this->socket->bind(1111);
+        QObject::connect(this->socket, SIGNAL(readyRead()), this, SLOT(rxData()));
     }
     void Udpserver::registerObserver(dp::DataProcessor *observer){
         this->dataObseverList.push_back(observer);
