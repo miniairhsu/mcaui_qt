@@ -1,8 +1,5 @@
 #include "mcawindow.h"
 #include "ui_mcawindow.h"
-#include "udpserver.h"
-#include "adprocessor.h"
-#include "dataheaders.h"
 using namespace ionet;
 using namespace dp;
 MCAWindow::MCAWindow(QWidget *parent) :
@@ -15,6 +12,9 @@ MCAWindow::MCAWindow(QWidget *parent) :
     dp::DataProcessor *adbProc = new dp::AdProcessor(ui->adbGraph, ADB_HH, ADB_HL);
     udpServer->registerObserver(adaProc);
     udpServer->registerObserver(adbProc);
+    //=========network setup===========//
+    QHostAddress hostAddr = QHostAddress("169.254.154.115");
+    udpClient = new ionet::Udpclient(hostAddr, 1111);
     //=========configure ui============//
     ui->adaGraph->addGraph();
     ui->adbGraph->addGraph();

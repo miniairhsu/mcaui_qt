@@ -12,6 +12,8 @@ namespace ionet {
         Udpclient();
         Udpclient(QHostAddress addr, quint16 port);
         void txData(QString txData);
+        void registerObserver(dp::DataProcessor *observer){}
+        void notify(QByteArray &data){}
     };
 }
 

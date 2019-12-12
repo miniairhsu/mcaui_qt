@@ -2,7 +2,10 @@
 #define MCAWINDOW_H
 
 #include <QMainWindow>
-
+#include "udpserver.h"
+#include "udpclient.h"
+#include "adprocessor.h"
+#include "dataheaders.h"
 namespace Ui {
 class MCAWindow;
 }
@@ -17,6 +20,7 @@ public:
 
 private:
     Ui::MCAWindow *ui;
+    ionet::Network *udpClient;
 };
 
 #endif // MCAWINDOW_H

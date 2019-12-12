@@ -3,7 +3,7 @@
 namespace ionet {
     Udpserver::Udpserver()
     {
-        this->socket = new QUdpSocket(this);
+        this->socket = new QUdpSocket();
         this->socket->bind(QHostAddress::LocalHost, 1111);
         QObject::connect(socket, SIGNAL(readyRead()), this, SLOT(rxData()));
     }
