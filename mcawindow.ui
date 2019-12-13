@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1700</width>
-    <height>800</height>
+    <height>900</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,9 +18,9 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>10</y>
-      <width>800</width>
-      <height>700</height>
+      <y>659</y>
+      <width>261</width>
+      <height>51</height>
      </rect>
     </property>
    </widget>
@@ -28,19 +28,40 @@
     <property name="geometry">
      <rect>
       <x>840</x>
-      <y>10</y>
+      <y>669</y>
       <width>800</width>
-      <height>700</height>
+      <height>41</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QWidget" name="grid1" native="true">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>40</y>
+      <width>1700</width>
+      <height>650</height>
+     </rect>
+    </property>
+    <layout class="QGridLayout" name="plotGrid"/>
+   </widget>
+   <widget class="QLineEdit" name="commandEdit">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>820</y>
+      <width>165</width>
+      <height>22</height>
      </rect>
     </property>
    </widget>
    <widget class="QLabel" name="commandLabel">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>720</y>
-      <width>91</width>
-      <height>21</height>
+      <x>350</x>
+      <y>820</y>
+      <width>209</width>
+      <height>29</height>
      </rect>
     </property>
     <property name="font">
@@ -55,13 +76,93 @@
      <string>Command</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="commandEdit">
+   <widget class="QGroupBox" name="settingBox">
     <property name="geometry">
      <rect>
-      <x>90</x>
-      <y>720</y>
-      <width>161</width>
-      <height>21</height>
+      <x>10</x>
+      <y>710</y>
+      <width>451</width>
+      <height>101</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Settings</string>
+    </property>
+   </widget>
+   <widget class="QWidget" name="gridLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>470</x>
+      <y>730</y>
+      <width>160</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <layout class="QGridLayout" name="settingGrid"/>
+   </widget>
+   <widget class="QPushButton" name="commandButton">
+    <property name="geometry">
+     <rect>
+      <x>440</x>
+      <y>820</y>
+      <width>80</width>
+      <height>15</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Send</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="scaleXBox">
+    <property name="geometry">
+     <rect>
+      <x>540</x>
+      <y>810</y>
+      <width>55</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="networkBox">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>820</y>
+      <width>55</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="channelBox">
+    <property name="geometry">
+     <rect>
+      <x>80</x>
+      <y>820</y>
+      <width>55</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="plotButton">
+    <property name="geometry">
+     <rect>
+      <x>620</x>
+      <y>810</y>
+      <width>80</width>
+      <height>15</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Start</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="scaleYBox">
+    <property name="geometry">
+     <rect>
+      <x>640</x>
+      <y>750</y>
+      <width>55</width>
+      <height>22</height>
      </rect>
     </property>
    </widget>
