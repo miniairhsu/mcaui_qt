@@ -7,16 +7,30 @@ MCAWindow::MCAWindow(QWidget *parent) :
     ui(new Ui::MCAWindow)
 {
     ui->setupUi(this);
+    //============set up GUI============//
+    //==================================//
+    //============plot=========//
     ui->plotGrid->addWidget(ui->adaGraph, 0, 0, 1, 1);
     ui->plotGrid->addWidget(ui->adbGraph, 0, 1, 1, 1);
-    ui->settingGrid->addWidget(ui->channelBox, 0, 0, 1, 1);
-    ui->settingGrid->addWidget(ui->scaleXBox,0, 1, 1, 1);
-    ui->settingGrid->addWidget(ui->scaleYBox, 0, 2, 1, 1);
-    ui->settingGrid->addWidget(ui->plotButton, 0, 3, 1, 1);
+    //============plot settings=========//
+    ui->plotSetGrid->addWidget(ui->channelBox, 0, 0, 1, 1);
+    ui->plotSetGrid->addWidget(ui->scaleXBox,0, 1, 1, 1);
+    ui->plotSetGrid->addWidget(ui->scaleYBox, 1, 0, 1, 1);
+    ui->plotSetGrid->addWidget(ui->plotButton, 1, 1, 1, 1);
+    ui->plotBox->setLayout(ui->plotSetGrid);
+    //============LED=========//
+    ui->ledGrid->addWidget(ui->ledButton1,0, 0, 1, 1);
+    ui->ledGrid->addWidget(ui->ledButton2,0 ,1, 1, 1);
+    ui->ledGrid->addWidget(ui->ledButton3,0, 2, 1, 1);
+    ui->ledGrid->addWidget(ui->ledButton4,0, 3, 1, 1);
+    ui->ledGrid->addWidget(ui->ledOn,1 ,0 ,1 , 1);
+    ui->ledGrid->addWidget(ui->ledOff,1 ,1 ,1 ,1);
+    ui->ledBox->setLayout(ui->ledGrid);
+    //===========settings=====//
+    ui->settingGrid->addWidget(ui->commandLabel,0, 0, 1, 1);
+    ui->settingGrid->addWidget(ui->commandEdit, 0, 1, 1, 1);
+    ui->settingGrid->addWidget(ui->commandButton, 1, 1, 1, 1);
     ui->settingGrid->addWidget(ui->networkBox,1, 0, 1, 1);
-    ui->settingGrid->addWidget(ui->commandLabel,2, 0, 1, 1);
-    ui->settingGrid->addWidget(ui->commandEdit, 2, 1, 1, 1);
-    ui->settingGrid->addWidget(ui->commandButton,2, 2, 1, 1);
     ui->settingBox->setLayout(ui->settingGrid);
     ionet::Network *udpServer = new ionet::Udpserver;
     dp::DataProcessor *adaProc = new dp::AdProcessor(ui->adaGraph, ADA_HH, ADA_HL);
