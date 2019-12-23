@@ -60,7 +60,6 @@ LIBS += C:/Users/minia/Documents/academy/swlib/opencvLib_QT/install/x86/mingw/bi
 LIBS += C:/Users/minia/Documents/academy/swlib/opencvLib_QT/install/x86/mingw/bin/libopencv_photo410.dll
 LIBS += C:/Users/minia/Documents/academy/swlib/opencvLib_QT/install/x86/mingw/bin/libopencv_imgcodecs410.dll
 LIBS += C:/Users/minia/Documents/academy/swlib/opencvLib_QT/install/x86/mingw/bin/opencv_ffmpeg410.dll
-LIBS += C:/Users/minia/Documents/academy/swlib/opencvLib_QT/install/x86/mingw/bin/libopencv_dnn410.dll
 LIBS += C:/Users/minia/Documents/academy/swlib/opencvLib_QT/install/x86/mingw/bin/libopencv_gapi410.dll
 LIBS += C:/Users/minia/Documents/academy/swlib/opencvLib_QT/install/x86/mingw/bin/libopencv_calib3d410.dll
 LIBS += C:/Users/minia/Documents/academy/swlib/opencvLib_QT/install/x86/mingw/bin/libopencv_stitching410.dll

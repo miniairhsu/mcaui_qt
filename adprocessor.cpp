@@ -15,18 +15,25 @@ namespace dp {
         }
     }
     void AdProcessor::refreshGraph(char* cData){
-        unsigned short length = static_cast<unsigned short>(cData[3]<<8 | cData[2]);
-        unsigned short index = static_cast<unsigned short>(cData[5]<<8 | cData[4]);
-        unsigned short pkt_size = static_cast<unsigned short>(cData[7]<<8 | cData[6]);
-        memmove(reinterpret_cast<unsigned char*>(&sData[index*length*sizeof(short)]), &cData[8], length * sizeof(short));
-        for(int i = 0; i < length; i++){
-           yData_Vec[index * length + i] = sData[i];
-           xData_Vec[index * length + i] = index * length + i;
+
+        unsigned short length = static_cast<unsigned short>(((cData[3]<<8) & 0xFF00) | (cData[2] & 0x00FF));
+        //unsigned short index = static_cast<unsigned short>(cData[5]<<8 | cData[4]); skip use internal counter
+        //unsigned short pkt_size = static_cast<unsigned short>(cData[7]<<8 | cData[6]); skip use internal settings
+        memmove(reinterpret_cast<unsigned char*>(&sData), &cData[8], length * sizeof(unsigned short));
+        if(index <= pkt_size){
+
+            for(int i = 0; i < length; i++){
+                yData_Vec.push_back(static_cast<double>(sData[i]));
+                xData_Vec.push_back(static_cast<double>(index * length + i));
+            }
+            index++;
         }
-        if( index == pkt_size){
-            this->plot->graph(0)->data()->clear();
-            this->plot->graph(0)->addData(xData_Vec, yData_Vec);
+        if( index == pkt_size ){
+            this->plot->graph(0)->setData(xData_Vec, yData_Vec, true);
             this->plot->replot();
+            yData_Vec.clear();
+            xData_Vec.clear();
+            index = 0;
         }
     }
 }

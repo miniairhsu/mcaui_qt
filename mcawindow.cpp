@@ -41,6 +41,35 @@ MCAWindow::MCAWindow(QWidget *parent) :
     QHostAddress hostAddr = QHostAddress("169.254.154.115");
     udpClient = new ionet::Udpclient(hostAddr, 1111);
     //=========configure ui============//
+    //=========set range box===========//
+    QStringList xScaleList;
+    xScaleList.append("X scale");
+    xScaleList.append("1000");
+    xScaleList.append("3000");
+    xScaleList.append("6000");
+    xScaleList.append("9000");
+    ui->scaleXBox->addItems(xScaleList);
+    QStringList yScaleList;
+    yScaleList.append("Y scale");
+    yScaleList.append("200");
+    yScaleList.append("500");
+    yScaleList.append("1000");
+    yScaleList.append("2000");
+    yScaleList.append("4000");
+    yScaleList.append("6000");
+    yScaleList.append("8000");
+    yScaleList.append("10000");
+    yScaleList.append("15000");
+    yScaleList.append("20000");
+    ui->scaleYBox->addItems(yScaleList);
+    connect(ui->scaleXBox, SIGNAL(currentIndexChanged(int)), SLOT(on_scaleXBox_currentIndexChanged(int)));
+    connect(ui->scaleYBox, SIGNAL(currentIndexChanged(int)), SLOT(on_scaleYBox_currentIndexChanged(int)));
+
+
+    ui->adaGraph->xAxis->setRange(0, 5000);
+    ui->adaGraph->yAxis->setRange(-100, 2000);
+    ui->adbGraph->xAxis->setRange(0, 5000);
+    ui->adbGraph->yAxis->setRange(-300, 2000);
     ui->adaGraph->addGraph();
     ui->adbGraph->addGraph();
 }
@@ -48,4 +77,23 @@ MCAWindow::MCAWindow(QWidget *parent) :
 MCAWindow::~MCAWindow()
 {
     delete ui;
+}
+
+
+void MCAWindow::on_scaleXBox_currentIndexChanged(int index)
+{
+    if( index != 0 ){
+        int xScale = ui->scaleXBox->currentText().toInt();
+        ui->adaGraph->xAxis->setRange(0, xScale);
+        ui->adbGraph->xAxis->setRange(0, xScale);
+    }
+}
+
+void MCAWindow::on_scaleYBox_currentIndexChanged(int index)
+{
+    if(index != 0){
+        int yScale = ui->scaleYBox->currentText().toInt();
+        ui->adaGraph->yAxis->setRange(-yScale, yScale);
+        ui->adbGraph->yAxis->setRange(-yScale, yScale);
+    }
 }

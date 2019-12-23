@@ -18,6 +18,11 @@ public:
     explicit MCAWindow(QWidget *parent = nullptr);
     ~MCAWindow();
 
+private slots:
+    void on_scaleXBox_currentIndexChanged(int index);
+
+    void on_scaleYBox_currentIndexChanged(int index);
+
 private:
     Ui::MCAWindow *ui;
     ionet::Network *udpClient;
