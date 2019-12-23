@@ -17,6 +17,7 @@ MCAWindow::MCAWindow(QWidget *parent) :
     ui->plotSetGrid->addWidget(ui->scaleXBox,0, 1, 1, 1);
     ui->plotSetGrid->addWidget(ui->scaleYBox, 1, 0, 1, 1);
     ui->plotSetGrid->addWidget(ui->plotButton, 1, 1, 1, 1);
+    ui->plotSetGrid->addWidget(ui->stopButton,1, 2, 1, 1);
     ui->plotBox->setLayout(ui->plotSetGrid);
     //============LED=========//
     ui->ledGrid->addWidget(ui->ledButton1,0, 0, 1, 1);
@@ -64,7 +65,26 @@ MCAWindow::MCAWindow(QWidget *parent) :
     ui->scaleYBox->addItems(yScaleList);
     connect(ui->scaleXBox, SIGNAL(currentIndexChanged(int)), SLOT(on_scaleXBox_currentIndexChanged(int)));
     connect(ui->scaleYBox, SIGNAL(currentIndexChanged(int)), SLOT(on_scaleYBox_currentIndexChanged(int)));
-
+    //=======send button================//
+    connect(ui->commandButton, SIGNAL(clicked()), SLOT(on_commandButton_clicked()));
+    //=======command field==============//
+    connect(ui->commandEdit, SIGNAL(returnPressed()), SLOT(on_commandEdit_returnPressed()));
+    //=======radio buttons==============//
+    connect(ui->ledButton1, SIGNAL(clicked()), SLOT(on_ledButton1_clicked()));
+    connect(ui->ledButton2, SIGNAL(clicked()), SLOT(on_ledButton2_clicked()));
+    connect(ui->ledButton3, SIGNAL(clicked()), SLOT(on_ledButton3_clicked()));
+    connect(ui->ledButton4, SIGNAL(clicked()), SLOT(on_ledButton4_clicked()));
+    connect(ui->ledOn, SIGNAL(clicked()), SLOT(on_ledOn_clicked()));
+    connect(ui->ledOff, SIGNAL(clicked()), SLOT(on_ledOff_clicked()));
+    //======set plot channel===========//
+    QStringList channelList;
+    channelList.append("ADC channel");
+    channelList.append("1");
+    channelList.append("2");
+    channelList.append("3");
+    ui->channelBox->addItems(channelList);
+    connect(ui->plotButton, SIGNAL(pressed()), SLOT(on_plotButton_pressed()));
+    connect(ui->stopButton, SIGNAL(pressed()), SLOT(on_stopButton_pressed()));
 
     ui->adaGraph->xAxis->setRange(0, 5000);
     ui->adaGraph->yAxis->setRange(-100, 2000);
@@ -96,4 +116,66 @@ void MCAWindow::on_scaleYBox_currentIndexChanged(int index)
         ui->adaGraph->yAxis->setRange(-yScale, yScale);
         ui->adbGraph->yAxis->setRange(-yScale, yScale);
     }
+}
+
+void MCAWindow::on_commandButton_clicked()
+{
+    QString cmd = ui->commandEdit->text();
+    udpClient->txData(cmd);
+}
+
+void MCAWindow::on_commandEdit_returnPressed()
+{
+    QString cmd = ui->commandEdit->text();
+    udpClient->txData(cmd);
+}
+
+void MCAWindow::on_ledButton1_clicked()
+{
+    udpClient->txData(LED1);
+}
+
+void MCAWindow::on_ledButton2_clicked()
+{
+    udpClient->txData(LED2);
+}
+
+void MCAWindow::on_ledButton3_clicked()
+{
+    udpClient->txData(LED3);
+}
+
+void MCAWindow::on_ledButton4_clicked()
+{
+    udpClient->txData(LED4);
+}
+
+void MCAWindow::on_ledOn_clicked()
+{
+    udpClient->txData(LEDALL);
+}
+
+void MCAWindow::on_ledOff_clicked()
+{
+    udpClient->txData(LEDOFF);
+}
+
+void MCAWindow::on_plotButton_pressed()
+{
+    QString cmd = "enad:1";
+    udpClient->txData(cmd);
+    QThread::msleep(10);
+    if(ui->channelBox->currentIndex() != 0){
+        QString cmd1 = "setadch:"+ui->channelBox->currentText();
+        udpClient->txData(cmd1);
+    }
+}
+
+void MCAWindow::on_stopButton_pressed()
+{
+    QString cmd = "enad:0";
+    udpClient->txData(cmd);
+    QThread::msleep(10);
+    QString cmd1 = "setadch:0";
+    udpClient->txData(cmd1);
 }

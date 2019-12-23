@@ -35,6 +35,7 @@ SOURCES += \
     qcustomplot.cpp
 
 HEADERS += \
+    commandstring.h \
         mcawindow.h \
     network.h \
     udpclient.h \
