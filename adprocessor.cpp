@@ -8,15 +8,16 @@ namespace dp {
         this->headerL = headerL;
     }
     void AdProcessor::update(QByteArray &data){
-        char *cData;
-        cData = reinterpret_cast<char *>(data.data());
+        unsigned char *cData;
+        cData = reinterpret_cast<unsigned char *>(data.data());
         if(cData[0] == headerH && cData[1] == headerL){
             this->refreshGraph(cData);
         }
     }
-    void AdProcessor::refreshGraph(char* cData){
+    void AdProcessor::refreshGraph(unsigned char* cData){
 
         unsigned short length = static_cast<unsigned short>(((cData[3]<<8) & 0xFF00) | (cData[2] & 0x00FF));
+        memcpy(&meanVal,&cData[4],sizeof(float));
         //unsigned short index = static_cast<unsigned short>(cData[5]<<8 | cData[4]); skip use internal counter
         //unsigned short pkt_size = static_cast<unsigned short>(cData[7]<<8 | cData[6]); skip use internal settings
         memmove(reinterpret_cast<unsigned char*>(&sData), &cData[8], length * sizeof(unsigned short));

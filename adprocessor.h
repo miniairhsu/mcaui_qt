@@ -10,7 +10,8 @@ namespace dp {
         AdProcessor();
         AdProcessor(QCustomPlot *plot,char headerH, char headerL);
         void update(QByteArray &data);
-        void refreshGraph(char* cData);
+        void refreshGraph(unsigned char* cData);
+        float meanVal;
     private:
         QVector<double> yData_Vec;
         QVector<double> xData_Vec;
