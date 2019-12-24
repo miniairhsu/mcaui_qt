@@ -15,9 +15,9 @@ MCAWindow::MCAWindow(QWidget *parent) :
     //============plot settings=========//
     ui->plotSetGrid->addWidget(ui->channelBox, 0, 0, 1, 1);
     ui->plotSetGrid->addWidget(ui->scaleXBox,0, 1, 1, 1);
-    ui->plotSetGrid->addWidget(ui->scaleYBox, 1, 0, 1, 1);
-    ui->plotSetGrid->addWidget(ui->plotButton, 1, 1, 1, 1);
-    ui->plotSetGrid->addWidget(ui->stopButton,1, 2, 1, 1);
+    ui->plotSetGrid->addWidget(ui->scaleYBox, 0, 2, 1, 1);
+    ui->plotSetGrid->addWidget(ui->plotButton, 1, 0, 1, 1);
+    ui->plotSetGrid->addWidget(ui->stopButton,1, 1, 1, 1);
     ui->plotBox->setLayout(ui->plotSetGrid);
     //============LED=========//
     ui->ledGrid->addWidget(ui->ledButton1,0, 0, 1, 1);
@@ -85,13 +85,16 @@ MCAWindow::MCAWindow(QWidget *parent) :
     ui->channelBox->addItems(channelList);
     connect(ui->plotButton, SIGNAL(pressed()), SLOT(on_plotButton_pressed()));
     connect(ui->stopButton, SIGNAL(pressed()), SLOT(on_stopButton_pressed()));
-
+    //=====set up graph================//
     ui->adaGraph->xAxis->setRange(0, 5000);
     ui->adaGraph->yAxis->setRange(-100, 2000);
     ui->adbGraph->xAxis->setRange(0, 5000);
     ui->adbGraph->yAxis->setRange(-300, 2000);
     ui->adaGraph->addGraph();
     ui->adbGraph->addGraph();
+    QPen pen;
+    pen.setColor(QColor(255, 0, 0));
+    ui->adbGraph->graph()->setPen(pen);
 }
 
 MCAWindow::~MCAWindow()

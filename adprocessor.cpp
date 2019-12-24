@@ -21,7 +21,6 @@ namespace dp {
         //unsigned short pkt_size = static_cast<unsigned short>(cData[7]<<8 | cData[6]); skip use internal settings
         memmove(reinterpret_cast<unsigned char*>(&sData), &cData[8], length * sizeof(unsigned short));
         if(index <= pkt_size){
-
             for(int i = 0; i < length; i++){
                 yData_Vec.push_back(static_cast<double>(sData[i]));
                 xData_Vec.push_back(static_cast<double>(index * length + i));
