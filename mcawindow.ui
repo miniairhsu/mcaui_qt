@@ -323,56 +323,6 @@
      <string>stop</string>
     </property>
    </widget>
-   <widget class="QGroupBox" name="infoBox">
-    <property name="geometry">
-     <rect>
-      <x>1170</x>
-      <y>710</y>
-      <width>251</width>
-      <height>101</height>
-     </rect>
-    </property>
-    <property name="title">
-     <string>Information</string>
-    </property>
-   </widget>
-   <widget class="QWidget" name="gridLayoutWidget_4">
-    <property name="geometry">
-     <rect>
-      <x>1440</x>
-      <y>800</y>
-      <width>160</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <layout class="QGridLayout" name="infoGrid"/>
-   </widget>
-   <widget class="QLabel" name="adameanLabel">
-    <property name="geometry">
-     <rect>
-      <x>1380</x>
-      <y>840</y>
-      <width>56</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>ADC A mean :</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="adbmeanLable">
-    <property name="geometry">
-     <rect>
-      <x>1490</x>
-      <y>850</y>
-      <width>56</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>ADC B mean:</string>
-    </property>
-   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">

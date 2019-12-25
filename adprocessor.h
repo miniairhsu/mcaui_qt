@@ -11,13 +11,18 @@ namespace dp {
         AdProcessor(QCustomPlot *plot,char headerH, char headerL);
         void update(QByteArray &data);
         void refreshGraph(unsigned char* cData);
-        float meanVal;
+
     private:
         QVector<double> yData_Vec;
         QVector<double> xData_Vec;
         short sData[65536];
         int index = 0;
         unsigned short pkt_size = 8;
+        float meanVal;
+        float varVal;
+        float stdVal;
+        float covVal;
+        QCPItemText *textLabel;
     };
 }
 

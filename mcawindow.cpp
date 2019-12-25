@@ -40,10 +40,6 @@ MCAWindow::MCAWindow(QWidget *parent) :
     adbProc = new dp::AdProcessor(ui->adbGraph, ADB_HH, ADB_HL);
     udpServer->registerObserver(adaProc);
     udpServer->registerObserver(adbProc);
-    //=========info===========//
-    ui->infoGrid->addWidget(ui->adameanLabel, 0, 0, 1, 1);
-    ui->infoGrid->addWidget(ui->adbmeanLable, 1, 0, 1, 1);
-    ui->infoBox->setLayout(ui->infoGrid);
     //=========network setup===========//
     QHostAddress hostAddr = QHostAddress("169.254.154.115");
     udpClient = new ionet::Udpclient(hostAddr, 1111);

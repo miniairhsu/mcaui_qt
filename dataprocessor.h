@@ -14,7 +14,6 @@ namespace dp {
         virtual void update(QByteArray &data)=0;
         virtual void refreshGraph(unsigned char* cData) = 0;
         QCustomPlot *plot;
-        float meanVal;
         char headerH;
         char headerL;
     signals:
