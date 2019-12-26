@@ -22,6 +22,8 @@ namespace dp {
         float varVal;
         float stdVal;
         float covVal;
+        float crossVal;
+        float powerVal;
         QCPItemText *textLabel;
     };
 }

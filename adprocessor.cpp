@@ -26,9 +26,12 @@ namespace dp {
         memcpy(&varVal,&cData[8],sizeof(float));
         memcpy(&stdVal,&cData[12],sizeof(float));
         memcpy(&covVal,&cData[16],sizeof(float));
+        memcpy(&crossVal,&cData[20],sizeof(float));
+        memcpy(&powerVal,&cData[24],sizeof(float));
+        float correlation = crossVal/ powerVal;
         //unsigned short index = static_cast<unsigned short>(cData[5]<<8 | cData[4]); skip use internal counter
         //unsigned short pkt_size = static_cast<unsigned short>(cData[7]<<8 | cData[6]); skip use internal settings
-        memmove(reinterpret_cast<unsigned char*>(&sData), &cData[20], length * sizeof(unsigned short));
+        memmove(reinterpret_cast<unsigned char*>(&sData), &cData[28], length * sizeof(unsigned short));
         if(index <= pkt_size){
             for(int i = 0; i < length; i++){
                 yData_Vec.push_back(static_cast<double>(sData[i]));
@@ -38,7 +41,8 @@ namespace dp {
         }
         if( index == pkt_size ){
             textLabel->text().clear();
-            textLabel->setText("Mean " + QString::number(meanVal) + "\nVariance "+  QString::number(varVal) +"\nStd " + QString::number(stdVal) + "\nCovariance " + QString::number(covVal));
+            textLabel->setText("Mean " + QString::number(meanVal) + "\nVariance "+  QString::number(varVal) +"\nStd " + QString::number(stdVal) \
+                               + "\nCovariance " + QString::number(covVal) + "\nCorrelation " + QString::number(correlation));
             textLabel->setFont(QFont ("Courier", 8)); // make font a bit larger
             this->plot->graph(0)->setData(xData_Vec, yData_Vec, true);
             this->plot->replot();
