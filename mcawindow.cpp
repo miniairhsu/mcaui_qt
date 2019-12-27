@@ -47,6 +47,10 @@ MCAWindow::MCAWindow(QWidget *parent) :
     //=========set range box===========//
     QStringList xScaleList;
     xScaleList.append("X scale");
+    xScaleList.append("50");
+    xScaleList.append("100");
+    xScaleList.append("200");
+    xScaleList.append("500");
     xScaleList.append("1000");
     xScaleList.append("3000");
     xScaleList.append("6000");
@@ -54,6 +58,8 @@ MCAWindow::MCAWindow(QWidget *parent) :
     ui->scaleXBox->addItems(xScaleList);
     QStringList yScaleList;
     yScaleList.append("Y scale");
+    yScaleList.append("20");
+    yScaleList.append("50");
     yScaleList.append("200");
     yScaleList.append("500");
     yScaleList.append("1000");

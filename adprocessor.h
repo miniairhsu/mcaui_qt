@@ -16,8 +16,10 @@ namespace dp {
         QVector<double> yData_Vec;
         QVector<double> xData_Vec;
         short sData[65536];
+        float fData[65536];
         int index = 0;
         unsigned short pkt_size = 8;
+        unsigned short mode;
         float meanVal;
         float varVal;
         float stdVal;

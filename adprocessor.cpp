@@ -22,23 +22,36 @@ namespace dp {
     void AdProcessor::refreshGraph(unsigned char* cData){
 
         unsigned short length = static_cast<unsigned short>(((cData[3]<<8) & 0xFF00) | (cData[2] & 0x00FF));
-        memcpy(&meanVal,&cData[4],sizeof(float));
-        memcpy(&varVal,&cData[8],sizeof(float));
-        memcpy(&stdVal,&cData[12],sizeof(float));
-        memcpy(&covVal,&cData[16],sizeof(float));
-        memcpy(&crossVal,&cData[20],sizeof(float));
-        memcpy(&powerVal,&cData[24],sizeof(float));
+        memcpy(&mode, &cData[4], sizeof(unsigned short));
+        memcpy(&meanVal,&cData[6],sizeof(float));
+        memcpy(&varVal,&cData[10],sizeof(float));
+        memcpy(&stdVal,&cData[14],sizeof(float));
+        memcpy(&covVal,&cData[18],sizeof(float));
+        memcpy(&crossVal,&cData[22],sizeof(float));
+        memcpy(&powerVal,&cData[26],sizeof(float));
         float correlation = crossVal/ powerVal;
-        //unsigned short index = static_cast<unsigned short>(cData[5]<<8 | cData[4]); skip use internal counter
-        //unsigned short pkt_size = static_cast<unsigned short>(cData[7]<<8 | cData[6]); skip use internal settings
-        memmove(reinterpret_cast<unsigned char*>(&sData), &cData[28], length * sizeof(unsigned short));
-        if(index <= pkt_size){
-            for(int i = 0; i < length; i++){
-                yData_Vec.push_back(static_cast<double>(sData[i]));
-                xData_Vec.push_back(static_cast<double>(index * length + i));
+        if(mode == 3){
+            memmove(reinterpret_cast<unsigned char*>(&fData), &cData[30], length * sizeof(float));
+            if(index <= pkt_size){
+                for(int i = 0; i < length; i++){
+                    yData_Vec.push_back(static_cast<double>(fData[i]));
+                    xData_Vec.push_back(static_cast<double>(index * length + i));
+                }
+                index++;
             }
-            index++;
+        }else {
+            memmove(reinterpret_cast<unsigned char*>(&sData), &cData[30], length * sizeof(unsigned short));
+            if(index <= pkt_size){
+                for(int i = 0; i < length; i++){
+                    yData_Vec.push_back(static_cast<double>(sData[i]));;
+                    xData_Vec.push_back(static_cast<double>(index * length + i));
+                }
+                index++;
+            }
         }
+
+
+
         if( index == pkt_size ){
             textLabel->text().clear();
             textLabel->setText("Mean " + QString::number(meanVal) + "\nVariance "+  QString::number(varVal) +"\nStd " + QString::number(stdVal) \
