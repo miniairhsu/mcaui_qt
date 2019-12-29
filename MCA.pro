@@ -70,12 +70,18 @@ LIBS += C:/Users/minia/Documents/academy/swlib/opencvLib_QT/install/x86/mingw/bi
 
 
 
+win32: LIBS += -L$$PWD/../../swlib/aquila_qt/lib/ -lAquila
 
+INCLUDEPATH += $$PWD/../../swlib/aquila_qt/include
+DEPENDPATH += $$PWD/../../swlib/aquila_qt/include
 
+win32:!win32-g++: PRE_TARGETDEPS += $$PWD/../../swlib/aquila_qt/lib/Aquila.lib
+else:win32-g++: PRE_TARGETDEPS += $$PWD/../../swlib/aquila_qt/lib/libAquila.a
 
+win32: LIBS += -L$$PWD/../../swlib/aquila_qt/lib/lib/ -lOoura_fft
 
+INCLUDEPATH += $$PWD/../../swlib/aquila_qt/include
+DEPENDPATH += $$PWD/../../swlib/aquila_qt/include
 
-
-
-
-
+win32:!win32-g++: PRE_TARGETDEPS += $$PWD/../../swlib/aquila_qt/lib/lib/Ooura_fft.lib
+else:win32-g++: PRE_TARGETDEPS += $$PWD/../../swlib/aquila_qt/lib/lib/libOoura_fft.a

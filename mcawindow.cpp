@@ -18,8 +18,9 @@ MCAWindow::MCAWindow(QWidget *parent) :
     ui->plotSetGrid->addWidget(ui->channelBox, 0, 0, 1, 1);
     ui->plotSetGrid->addWidget(ui->scaleXBox,0, 1, 1, 1);
     ui->plotSetGrid->addWidget(ui->scaleYBox, 0, 2, 1, 1);
-    ui->plotSetGrid->addWidget(ui->plotButton, 1, 0, 1, 1);
-    ui->plotSetGrid->addWidget(ui->stopButton,1, 1, 1, 1);
+    ui->plotSetGrid->addWidget(ui->modeBox,1, 0, 1, 1);
+    ui->plotSetGrid->addWidget(ui->plotButton, 1, 1, 1, 1);
+    ui->plotSetGrid->addWidget(ui->stopButton,1, 2, 1, 1);
     ui->plotBox->setLayout(ui->plotSetGrid);
     //============LED=========//
     ui->ledGrid->addWidget(ui->ledButton1,0, 0, 1, 1);
@@ -47,17 +48,25 @@ MCAWindow::MCAWindow(QWidget *parent) :
     //=========set range box===========//
     QStringList xScaleList;
     xScaleList.append("X scale");
-    xScaleList.append("50");
-    xScaleList.append("100");
+    xScaleList.append("40");
+    xScaleList.append("80");
     xScaleList.append("200");
-    xScaleList.append("500");
-    xScaleList.append("1000");
-    xScaleList.append("3000");
+    xScaleList.append("400");
+    xScaleList.append("800");
+    xScaleList.append("1200");
+    xScaleList.append("1600");
+    xScaleList.append("2000");
+    xScaleList.append("4000");
     xScaleList.append("6000");
-    xScaleList.append("9000");
+    xScaleList.append("8000");
+    xScaleList.append("6000");
+    xScaleList.append("8000");
+    xScaleList.append("10000");
+    xScaleList.append("12000");
     ui->scaleXBox->addItems(xScaleList);
     QStringList yScaleList;
     yScaleList.append("Y scale");
+    yScaleList.append("2");
     yScaleList.append("20");
     yScaleList.append("50");
     yScaleList.append("200");
@@ -71,6 +80,11 @@ MCAWindow::MCAWindow(QWidget *parent) :
     yScaleList.append("15000");
     yScaleList.append("20000");
     ui->scaleYBox->addItems(yScaleList);
+    QStringList modeList;
+    modeList.append("Mode");
+    modeList.append("Time");
+    modeList.append("FFT");
+    ui->modeBox->addItems(modeList);
     connect(ui->scaleXBox, SIGNAL(currentIndexChanged(int)), SLOT(on_scaleXBox_currentIndexChanged(int)));
     connect(ui->scaleYBox, SIGNAL(currentIndexChanged(int)), SLOT(on_scaleYBox_currentIndexChanged(int)));
     //=======send button================//
@@ -179,6 +193,13 @@ void MCAWindow::on_plotButton_pressed()
     if(ui->channelBox->currentIndex() != 0){
         QString cmd1 = "setadch:"+ui->channelBox->currentText();
         udpClient->txData(cmd1);
+    }
+    if(ui->modeBox->currentIndex() != 0){
+        adaProc->setMode(ui->modeBox->currentIndex());
+        adbProc->setMode(ui->modeBox->currentIndex());
+    }else{
+        adaProc->setMode(1);
+        adbProc->setMode(1);
     }
 }
 
