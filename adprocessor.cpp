@@ -1,33 +1,97 @@
 #include "adprocessor.h"
 
 namespace dp {
+
     AdProcessor::AdProcessor(){}
     AdProcessor:: AdProcessor(QCustomPlot *plot, char headerH, char headerL){
         this->plot = plot;
         this->headerH = headerH;
         this->headerL = headerL;
+        // add the text label at the top:
+        textLabel = new QCPItemText(this->plot);
+        textLabel->setPositionAlignment(Qt::AlignTop|Qt::AlignHCenter);
+        textLabel->position->setType(QCPItemPosition::ptAxisRectRatio);
+        textLabel->position->setCoords(0.8, 0); // place position at right/top of axis rect
     }
     void AdProcessor::update(QByteArray &data){
-        char *cData;
-        cData = reinterpret_cast<char *>(data.data());
+        unsigned char *cData;
+        cData = reinterpret_cast<unsigned char *>(data.data());
         if(cData[0] == headerH && cData[1] == headerL){
             this->refreshGraph(cData);
         }
     }
-    void AdProcessor::refreshGraph(char* cData){
-        unsigned short length = static_cast<unsigned short>(cData[3]<<8 | cData[2]);
-        unsigned short index = static_cast<unsigned short>(cData[5]<<8 | cData[4]);
-        unsigned short pkt_size = static_cast<unsigned short>(cData[7]<<8 | cData[6]);
-        memmove(reinterpret_cast<unsigned char*>(&sData[index*length*sizeof(short)]), &cData[8], length * sizeof(short));
-        for(int i = 0; i < length; i++){
-           yData_Vec[index * length + i] = sData[i];
-           xData_Vec[index * length + i] = index * length + i;
-        }
-        if( index == pkt_size){
-            this->plot->graph(0)->data()->clear();
-            this->plot->graph(0)->addData(xData_Vec, yData_Vec);
+
+    void AdProcessor::setMode(int mode){
+        this->fftMode = mode;
+    }
+
+    void AdProcessor::refreshGraph(unsigned char* cData){
+
+        unsigned short length = static_cast<unsigned short>(((cData[3]<<8) & 0xFF00) | (cData[2] & 0x00FF));
+        memcpy(&mode, &cData[4], sizeof(unsigned short));
+        memcpy(&meanVal,&cData[6],sizeof(float));
+        memcpy(&varVal,&cData[10],sizeof(float));
+        memcpy(&stdVal,&cData[14],sizeof(float));
+        memcpy(&covVal,&cData[18],sizeof(float));
+        memcpy(&crossVal,&cData[22],sizeof(float));
+        memcpy(&powerVal,&cData[26],sizeof(float));
+        memcpy(&corrPeak, &cData[30],sizeof(int));
+        float correlation = crossVal/ powerVal;
+        if(mode == 3){
+            memmove(reinterpret_cast<unsigned char*>(&fData), &cData[34], length * sizeof(float));
+            for(int i = 0; i < length; i++){
+                yData_Vec.push_back(static_cast<double>(fData[i]));
+                xData_Vec.push_back(static_cast<double>(i));
+            }
+            textLabel->text().clear();
+            textLabel->setText("Mean " + QString::number(meanVal) + "\nVariance "+  QString::number(varVal) +"\nStd " + QString::number(stdVal) \
+                               + "\nCovariance " + QString::number(covVal) + "\nCorrelation " + QString::number(correlation) + "\nCorrPeak " + QString::number(corrPeak) );
+            textLabel->setFont(QFont ("Courier", 8)); // make font a bit larger
+            this->plot->graph(0)->setData(xData_Vec, yData_Vec, true);
             this->plot->replot();
-        }
+            yData_Vec.clear();
+            xData_Vec.clear();
+        }else {
+            memmove(reinterpret_cast<unsigned char*>(&sData), &cData[34], length * sizeof(unsigned short));
+            if( fftMode == 1){
+                if(index <= pkt_size){
+                    for(int i = 0; i < length; i++){
+                        yData_Vec.push_back(static_cast<double>(sData[i]));;
+                        xData_Vec.push_back(static_cast<double>(index * length + i));
+                    }
+                    index++;
+                }
+                if( index == pkt_size ){
+                    // calculate the FFT
+                    textLabel->text().clear();
+                    textLabel->setText("Mean " + QString::number(meanVal) + "\nVariance "+  QString::number(varVal) +"\nStd " + QString::number(stdVal) \
+                                       + "\nCovariance " + QString::number(covVal) + "\nCorrelation " + QString::number(correlation));
+                    textLabel->setFont(QFont ("Courier", 8)); // make font a bit larger
+                    this->plot->graph(0)->setData(xData_Vec, yData_Vec, true);
+                    this->plot->replot();
+                    yData_Vec.clear();
+                    xData_Vec.clear();
+                    index = 0;
+                }
+              }else {
+                auto fft = Aquila::FftFactory::getFft(SIZE);
+                std::copy(sData, sData + SIZE, sDataTemp);
+                Aquila::SpectrumType spectrum = fft->fft(sDataTemp);
+                for (unsigned int i = 0; i < spectrum.size(); ++i)
+                {
+                    yData_Vec.push_back(std::abs(spectrum[i])/SIZE);
+                    xData_Vec.push_back(static_cast<double>(i));
+                }
+                textLabel->text().clear();
+                textLabel->setText("Mean " + QString::number(meanVal) + "\nVariance "+  QString::number(varVal) +"\nStd " + QString::number(stdVal) \
+                                   + "\nCovariance " + QString::number(covVal) + "\nCorrelation " + QString::number(correlation));
+                textLabel->setFont(QFont ("Courier", 8)); // make font a bit larger
+                this->plot->graph(0)->setData(xData_Vec, yData_Vec, true);
+                this->plot->replot();
+                yData_Vec.clear();
+                xData_Vec.clear();
+             }
+         }
     }
 }
 

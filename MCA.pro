@@ -35,6 +35,7 @@ SOURCES += \
     qcustomplot.cpp
 
 HEADERS += \
+    commandstring.h \
         mcawindow.h \
     network.h \
     udpclient.h \
@@ -60,7 +61,6 @@ LIBS += C:/Users/minia/Documents/academy/swlib/opencvLib_QT/install/x86/mingw/bi
 LIBS += C:/Users/minia/Documents/academy/swlib/opencvLib_QT/install/x86/mingw/bin/libopencv_photo410.dll
 LIBS += C:/Users/minia/Documents/academy/swlib/opencvLib_QT/install/x86/mingw/bin/libopencv_imgcodecs410.dll
 LIBS += C:/Users/minia/Documents/academy/swlib/opencvLib_QT/install/x86/mingw/bin/opencv_ffmpeg410.dll
-LIBS += C:/Users/minia/Documents/academy/swlib/opencvLib_QT/install/x86/mingw/bin/libopencv_dnn410.dll
 LIBS += C:/Users/minia/Documents/academy/swlib/opencvLib_QT/install/x86/mingw/bin/libopencv_gapi410.dll
 LIBS += C:/Users/minia/Documents/academy/swlib/opencvLib_QT/install/x86/mingw/bin/libopencv_calib3d410.dll
 LIBS += C:/Users/minia/Documents/academy/swlib/opencvLib_QT/install/x86/mingw/bin/libopencv_stitching410.dll
@@ -70,12 +70,18 @@ LIBS += C:/Users/minia/Documents/academy/swlib/opencvLib_QT/install/x86/mingw/bi
 
 
 
+win32: LIBS += -L$$PWD/../../swlib/aquila_qt/lib/ -lAquila
 
+INCLUDEPATH += $$PWD/../../swlib/aquila_qt/include
+DEPENDPATH += $$PWD/../../swlib/aquila_qt/include
 
+win32:!win32-g++: PRE_TARGETDEPS += $$PWD/../../swlib/aquila_qt/lib/Aquila.lib
+else:win32-g++: PRE_TARGETDEPS += $$PWD/../../swlib/aquila_qt/lib/libAquila.a
 
+win32: LIBS += -L$$PWD/../../swlib/aquila_qt/lib/lib/ -lOoura_fft
 
+INCLUDEPATH += $$PWD/../../swlib/aquila_qt/include
+DEPENDPATH += $$PWD/../../swlib/aquila_qt/include
 
-
-
-
-
+win32:!win32-g++: PRE_TARGETDEPS += $$PWD/../../swlib/aquila_qt/lib/lib/Ooura_fft.lib
+else:win32-g++: PRE_TARGETDEPS += $$PWD/../../swlib/aquila_qt/lib/lib/libOoura_fft.a

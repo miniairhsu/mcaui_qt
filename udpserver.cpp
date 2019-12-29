@@ -22,8 +22,8 @@ namespace ionet {
         quint16 port;
         QByteArray data;
         while (socket->hasPendingDatagrams()){
-               data.resize(static_cast<int>(socket->pendingDatagramSize()));
-               socket->readDatagram(data.data(), data.size(), &addr, &port);
+            data.resize(socket->pendingDatagramSize());
+            socket->readDatagram(data.data(), data.size(), &addr, &port);
         }
         this->notify(data);
     }
