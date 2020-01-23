@@ -63,6 +63,10 @@ MCAWindow::MCAWindow(QWidget *parent) :
     xScaleList.append("8000");
     xScaleList.append("10000");
     xScaleList.append("12000");
+    xScaleList.append("14000");
+    xScaleList.append("16000");
+    xScaleList.append("18000");
+    xScaleList.append("20000");
     ui->scaleXBox->addItems(xScaleList);
     QStringList yScaleList;
     yScaleList.append("Y scale");
