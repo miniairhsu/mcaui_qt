@@ -83,6 +83,7 @@ MCAWindow::MCAWindow(QWidget *parent) :
     yScaleList.append("10000");
     yScaleList.append("15000");
     yScaleList.append("20000");
+    yScaleList.append("40000");
     ui->scaleYBox->addItems(yScaleList);
     QStringList modeList;
     modeList.append("Mode");
