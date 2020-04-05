@@ -32,8 +32,10 @@ namespace dp {
         float stdVal;
         float covVal;
         float crossVal;
-        float powerVal;
+        float powerValA;
+        float powerValB;
         int corrPeak;
+        float corrPeakVal;
         int fftMode = 1;
         QCPItemText *textLabel;
     };
