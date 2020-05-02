@@ -112,6 +112,7 @@ MCAWindow::MCAWindow(QWidget *parent) :
     channelList.append("1");
     channelList.append("2");
     channelList.append("3");
+    channelList.append("4");
     ui->channelBox->addItems(channelList);
     connect(ui->plotButton, SIGNAL(pressed()), SLOT(on_plotButton_pressed()));
     connect(ui->stopButton, SIGNAL(pressed()), SLOT(on_stopButton_pressed()));
