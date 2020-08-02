@@ -56,23 +56,22 @@ namespace dp {
             memcpy(&varVal,&cData[10],sizeof(float));
             memcpy(&stdVal,&cData[14],sizeof(float));
             if( fftMode == 1){
-                if (index == 0) {
-                    yData_Vec.clear();
-                    xData_Vec.clear();
-                }
                 if(index <= pkt_size){
-                    for(int i = index * length, j = 0; i < index * length + length; i++, j++){
-                        yData_Vec.push_back(static_cast<double>(sData[j]));
+                    for(int i = 0; i < length; i++){
+                        yData_Vec.push_back(static_cast<double>(sData[i]));;
                         xData_Vec.push_back(static_cast<double>(index * length + i));
                     }
                     index++;
-                    this->plot->graph(0)->setData(xData_Vec, yData_Vec, true);
-                    this->plot->replot();
                 }
                 if( index == pkt_size ){
+                    // calculate the FFT
                     textLabel->text().clear();
                     textLabel->setText("Mean " + QString::number(meanVal) + "\nVariance "+  QString::number(varVal) +"\nStd " + QString::number(stdVal));
                     textLabel->setFont(QFont ("Courier", 8)); // make font a bit larger
+                    this->plot->graph(0)->setData(xData_Vec, yData_Vec, true);
+                    this->plot->replot();
+                    yData_Vec.clear();
+                    xData_Vec.clear();
                     index = 0;
                 }
               }else {
