@@ -1,0 +1,14 @@
+INPUT(
+./release/main.o
+./release/mcawindow.o
+./release/network.o
+./release/udpclient.o
+./release/udpserver.o
+./release/dataprocessor.o
+./release/adprocessor.o
+./release/qcustomplot.o
+./release/moc_mcawindow.o
+./release/moc_udpserver.o
+./release/moc_dataprocessor.o
+./release/moc_qcustomplot.o
+);
