@@ -31,25 +31,31 @@ namespace dp {
         memcpy(&mode, &cData[4], sizeof(unsigned short));
         if(mode == 3){
             memmove(reinterpret_cast<unsigned char*>(&fData), &cData[34], length * sizeof(float));
-            for(int i = 0; i < length; i++){
-                yData_Vec.push_back(static_cast<double>(fData[i]));
-                xData_Vec.push_back(static_cast<double>(i));
+            if (index <= pkt_size) {
+                for(int i = 0; i < length; i++){
+                    yData_Vec.push_back(static_cast<double>(fData[i]));
+                    xData_Vec.push_back(static_cast<double>(index * length + i));
+                }
+                index++;
             }
-            textLabel->text().clear();
-            memcpy(&powerValA,&cData[6],sizeof(float));
-            memcpy(&powerValB,&cData[10],sizeof(float));
-            memcpy(&corrPeakVal,&cData[14],sizeof(float));
-            memcpy(&covVal,&cData[22],sizeof(float));
-            memcpy(&crossVal,&cData[26],sizeof(float));
-            memcpy(&corrPeak, &cData[30],sizeof(int));
-            textLabel->setText("Power A " + QString::number(powerValA) + "\nPower B "+ QString::number(powerValB)\
+            if (index == pkt_size) {
+                textLabel->text().clear();
+                memcpy(&powerValA,&cData[6],sizeof(float));
+                memcpy(&powerValB,&cData[10],sizeof(float));
+                memcpy(&corrPeakVal,&cData[14],sizeof(float));
+                memcpy(&covVal,&cData[22],sizeof(float));
+                memcpy(&crossVal,&cData[26],sizeof(float));
+                memcpy(&corrPeak, &cData[30],sizeof(int));
+                textLabel->setText("Power A " + QString::number(powerValA) + "\nPower B "+ QString::number(powerValB)\
                                + "\nCovariance " + QString::number(covVal) + "\nCorrelation " + QString::number(crossVal) + "\nCorrPeak " + QString::number(corrPeak)\
                                + "\nPeakVal " + QString::number(corrPeakVal));
-            textLabel->setFont(QFont ("Courier", 8)); // make font a bit larger
-            this->plot->graph(0)->setData(xData_Vec, yData_Vec, true);
-            this->plot->replot();
-            yData_Vec.clear();
-            xData_Vec.clear();
+                textLabel->setFont(QFont ("Courier", 8)); // make font a bit larger
+                this->plot->graph(0)->setData(xData_Vec, yData_Vec, true);
+                this->plot->replot();
+                yData_Vec.clear();
+                xData_Vec.clear();
+                index = 0;
+            }
         }else {
             memmove(reinterpret_cast<unsigned char*>(&sData), &cData[34], length * sizeof(unsigned short));
             memcpy(&meanVal,&cData[6],sizeof(float));
