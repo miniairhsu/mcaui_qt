@@ -70,6 +70,8 @@ MCAWindow::MCAWindow(QWidget *parent) :
     xScaleList.append("40000");
     xScaleList.append("80000");
     xScaleList.append("100000");
+    xScaleList.append("500000");
+    xScaleList.append("1000000");
     ui->scaleXBox->addItems(xScaleList);
     QStringList yScaleList;
     yScaleList.append("Y scale");
@@ -88,6 +90,11 @@ MCAWindow::MCAWindow(QWidget *parent) :
     yScaleList.append("15000");
     yScaleList.append("20000");
     yScaleList.append("40000");
+    yScaleList.append("80000");
+    yScaleList.append("200000");
+    yScaleList.append("400000");
+    yScaleList.append("800000");
+    yScaleList.append("1000000");
     ui->scaleYBox->addItems(yScaleList);
     QStringList modeList;
     modeList.append("Mode");

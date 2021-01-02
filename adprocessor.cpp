@@ -51,14 +51,14 @@ namespace dp {
             yData_Vec.clear();
             xData_Vec.clear();
         }else {
-            memmove(reinterpret_cast<unsigned char*>(&sData), &cData[34], length * sizeof(unsigned short));
+            memmove(reinterpret_cast<unsigned char*>(&fData), &cData[34], length * sizeof(float));
             memcpy(&meanVal,&cData[6],sizeof(float));
             memcpy(&varVal,&cData[10],sizeof(float));
             memcpy(&stdVal,&cData[14],sizeof(float));
             if( fftMode == 1){
                 if(index <= pkt_size){
                     for(int i = 0; i < length; i++){
-                        yData_Vec.push_back(static_cast<double>(sData[i]));;
+                        yData_Vec.push_back(static_cast<double>(fData[i]/100));;
                         xData_Vec.push_back(static_cast<double>(index * length + i));
                     }
                     index++;
@@ -76,7 +76,7 @@ namespace dp {
                 }
               }else {
                 auto fft = Aquila::FftFactory::getFft(SIZE);
-                std::copy(sData, sData + SIZE, sDataTemp);
+                std::copy(fData, fData + SIZE, sDataTemp);
                 Aquila::SpectrumType spectrum = fft->fft(sDataTemp);
                 for (unsigned int i = 0; i < spectrum.size(); ++i)
                 {
