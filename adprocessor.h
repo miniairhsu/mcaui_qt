@@ -25,7 +25,7 @@ namespace dp {
         double sDataTemp[SIZE];
         float fData[65536];
         int index = 0;
-        unsigned short pkt_size = 10;
+        unsigned short pkt_size = 50;
         unsigned short mode;
         float meanVal;
         float varVal;
